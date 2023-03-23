@@ -16,7 +16,7 @@ ___
 
 ### $\textcolor{firebrick}{\textsf{2. Features}}$
 
-#### $\textcolor{deeppink}{\textsf{A. Data Representation \& Interchange}}$
+#### $\textcolor{deeppink}{\textsf{A. Data Representation and Interchange}}$
 
 |   | Feature                       | User generated | AI assisted | AI generated |
 |:--|:----------------------------- |:--------------:|:-----------:|:------------:|
