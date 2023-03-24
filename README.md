@@ -20,36 +20,36 @@ ___
 
 |   | Feature                       | User generated | AI assisted | AI generated |
 |:--|:----------------------------- |:--------------:|:-----------:|:------------:|
-| 1 |Mindmap                        | `v1` | `v1` | <sub>v2</sub> |
-| 2 |Cause & Effect Tree (Fishbone) | `v1` | `v1` | <sub>v2</sub> |
-| 3 |Decision Tree                  | `v1` | `v1` | <sub>v2</sub> |
-| 4 |Roadmap                        | `v1` | `v1` | <sub>v2</sub> |
-| 5 |Gantt Chart                    | `v1` | `v1` | <sub>v2</sub> |
-| 6 |Task List                      | `v1` | `v1` | <sub>v2</sub> |
-| 7 |Kanban                         | `v1` | `v1` | <sub>v2</sub> |
-| 8 |Flowcharts                     | `v1` | `v1` | <sub>v2</sub> |
-| 9 |Workflows                      | `v1` | `v1` | <sub>v2</sub> |
+| 1 |Mindmap                        | `v1` | `v1` | v2 |
+| 2 |Cause & Effect Tree (Fishbone) | `v1` | `v1` | v2 |
+| 3 |Decision Tree                  | `v1` | `v1` | v2 |
+| 4 |Roadmap                        | `v1` | `v1` | v2 |
+| 5 |Gantt Chart                    | `v1` | `v1` | v2 |
+| 6 |Task List                      | `v1` | `v1` | v2 |
+| 7 |Kanban                         | `v1` | `v1` | v2 |
+| 8 |Flowcharts                     | `v1` | `v1` | v2 |
+| 9 |Workflows                      | `v1` | `v1` | v2 |
 |10 |Table                          | `v1` | `v1` | `v1` |
 |11 |Post-it notes                  | `v1` | `v1` | `v1` |
 |12 |Venn Diagram                   | `v1` | `v1` | `v1` |
-|13 |Dashboards                     | <sub>v2</sub> | <sub>v2</sub> | <sub>v2</sub> |
-|14|Slides & Posters                | <sub>v2</sub> | <sub>v2</sub> | <sub>v2</sub> |
-|15|Banner Ads                      | <sub>v2</sub> | <sub>v2</sub> | <sub>v2</sub> |
-|13|Storyboards                     | <sub>v2</sub> | <sub>v2</sub> | <sub>v2</sub> |
-|14| Planning Board                 | <sub>v2</sub> | <sub>v2</sub> | <sub>v2</sub> |
-|11 |Ideaboard / Post-its           | <sub>v2</sub> | <sub>v2</sub> | <sub>v2</sub> |
-|15|Action Plan                     | <sub>v2</sub> | <sub>v2</sub> |
-|16|2x2 Matrix                      | <sub>v2</sub> | <sub>v2</sub> |
-|17|Docs                            | <sub>v2</sub> | <sub>v2</sub> |
-|18| Process Map                    | <sub>v2</sub> | <sub>v2</sub> |
-|19| Customer Journey Maps          | <sub>v2</sub> | <sub>v2</sub> |
-|11 |Spreadsheet / Table |
-|20|Database ER diagram  |
-|21|UML class            |
-|22|Sequence Diagram     |
-|23|3x3 Matrix           |
-|24|Business Model Canvas|
-|25| Cloud Infra Diagram |
+|13 |Dashboards                     | v2 | v2 | v2 |
+|14|Slides & Posters                | v2 | v2 | v2 |
+|15|Banner Ads                      | v2 | v2 | v2 |
+|16|Storyboards                     | v2 | v2 | v2 |
+|17|Planning Board                 | v2 | v2 | v2 |
+|18|Ideaboard / Post-its           | v2 | v2 | v2 |
+|19|Action Plan                     | v2 | v2 |
+|20|2x2 Matrix                      | v2 | v2 |
+|21|Docs                            | v2 | v2 |
+|22| Process Map                    | v2 | v2 |
+|23| Customer Journey Maps          | v2 | v2 |
+|24|Spreadsheet / Table |
+|25|Database ER diagram  |
+|26|UML class            |
+|27|Sequence Diagram     |
+|28|3x3 Matrix           |
+|29|Business Model Canvas|
+|30| Cloud Infra Diagram |
 
 ___
 
@@ -57,10 +57,10 @@ ___
 
 |   | Option   | Release |
 |:--|:---------|-------:|
-1| Email     |  `v1`  |
-2| Google    |  `v1`  |
-3| Apple     |  `v1`  |
-4| Microsoft |  `v1`  |
+1| Email     | `v1` |
+2| Google    | `v1` |
+3| Apple     | `v1` |
+4| Microsoft | `v1` |
 
 ___
 
@@ -68,17 +68,17 @@ ___
 
 |   | Product            | Release |
 |:--|:-------------------|-------:|
-1| Google Keep         |  `v1`  |
-2| Google Calendar     |  `v1`  |
-4| Google Sheets       |  `v1`  |
-3| Apple Notes         |  `v1`  |
-4| Microsoft Powerpoint|  `v1`  |
-5| JSON                |  `v1`  |
-5| CSV                 |  `v1`  |
-5| Zapier              | <sub>v2</sub> |
-6| Figma               | <sub>v2</sub> |
-7| Gmail               | <sub>v2</sub> |
-8| Outlook             | <sub>v2</sub> |
+1| Google Keep         | `v1` |
+2| Google Calendar     | `v1` |
+4| Google Sheets       | `v1`  |
+3| Apple Notes         | `v1` |
+4| Microsoft Powerpoint| `v1` |
+5| JSON                | `v1` |
+5| CSV                 | `v1` |
+5| Zapier              | v2 |
+6| Figma               | v2 |
+7| Gmail               | v2 |
+8| Outlook             | v2 |
 9| Google Docs         |
 10| Microsoft Word     |
 10| Microsoft Excel    |
@@ -91,13 +91,13 @@ ___
 
 |   | Artifact | Release |
 |:--|:---------|-------:|
-| 1 | Ziddee docs |  `v1`  |
-| 2 | Calendar    | <sub>v2</sub> |
-| 3 | Reminders   | <sub>v2</sub> |
-| 4 | Files       | <sub>v2</sub> |
-| 5 | Cloud Files | <sub>v2</sub> |
-| 6 | Code        | <sub>v2</sub> |
-| 7 | Github      | <sub>v2</sub> |
+| 1 | Ziddee docs | `v1` |
+| 2 | Calendar    | v2 |
+| 3 | Reminders   | v2 |
+| 4 | Files       | v2 |
+| 5 | Cloud Files | v2 |
+| 6 | Code        | v2 |
+| 7 | Github      | v2 |
 
 ___
 
@@ -105,9 +105,9 @@ ___
 
 |   | Data Type               | Release       |
 |:--|:------------------------|--------------:|
-| 1 | Ziddee Projects & Tasks | <sub>v2</sub> |
-| 2 | Time                    | <sub>v2</sub> |
-| 3 | Files                   | <sub>v2</sub> |
+| 1 | Ziddee Projects & Tasks | v2 |
+| 2 | Time                    | v2 |
+| 3 | Files                   | v2 |
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 |   | Feature               | Release       |
 |:--|:----------------------|--------------:|
-| 1 | Task & Doc Assignment | <sub>v2</sub> |
+| 1 | Task & Doc Assignment | v2 |
 | 2 | Live Editing          |
 | 3 | Auto Tracking         |
 

@@ -1,0 +1,318 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  // Core User Info
+  userId                 String    @id @default(cuid()) 
+  email                  String    @unique(map: "email") @db.VarChar(255)
+  username               String    @unique(map: "username") @db.VarChar(255)
+  firstName              String?   @db.VarChar(255)
+  lastName               String?   @db.VarChar(255)
+  password               String    @db.VarChar(255)
+  isAdmin                Boolean   @default(false) @db.Bit(1)
+  emailVerified          DateTime?
+  image                  String?
+  accounts               Account[]
+  sessions               Session[]
+
+
+  // Document & Nodes
+  docs                   Doc[]
+  nodes                  Node[]
+  docAccess              DocAccess[]      
+  nodeAccess             NodeAccess[]     
+  defaultTheme           Json?      @db.Json  // User's theme preferences
+
+  // Key events
+  createdAt              DateTime   @default(now()) @db.Timestamp(0) 
+  lastUpdatedAt          DateTime   @default(now()) @db.Timestamp(0)
+  lastLoginAt            DateTime?  @db.Timestamp(0) 
+  loggedInConnections    Json?      @db.Json  // User's active connections including regions, devices, errors, duration, and more
+  userEvents             UserEvent[]
+
+  // Product & Subscription Plan
+  subscriptions          Subscription[]
+
+  // Payment Info
+  paymentMethod          String?    @db.VarChar(255)
+  paymentToken           String?    @db.VarChar(255)
+
+}
+model UserEvent {
+  userEventId           String    @id @default(cuid()) 
+  user                  User      @relation(fields: [userId], references: [userId])
+  userId                String    
+  eventType             EventType @relation(fields: [eventTypeId], references: [eventTypeId])
+  eventTypeId           Int
+  eventData             Json?     @db.Json
+  createdAt             DateTime  @default(now()) @db.Timestamp(0)
+
+  @@index([userId])
+  @@index([eventTypeId])
+}
+
+model EventType {
+  eventTypeId           Int       @id @default(autoincrement())
+  eventTypeName         String    @db.VarChar(16)
+  userEvents            UserEvent[]
+}
+
+model Subscription {
+  subscriptionId        String    @id @default(cuid()) 
+  user                  User      @relation(fields: [userId], references: [userId])
+  userId                String    
+  product               Product   @relation(fields: [productId], references: [productId])
+  productId             String    
+  isTrial               Boolean   @default(false) @db.Bit(1)
+  plan                  Plan?      @relation(fields: [planId], references: [planId])
+  planId                String?    
+  planPrice             PlanPrice? @relation(fields: [planPriceId], references: [planPriceId])
+  planPriceId           String?    
+  trialStartDate        DateTime? @db.Date
+  trialEndDate          DateTime? @db.Date
+  subscriptionStartDate DateTime? @db.Date
+  subscriptionEndDate   DateTime? @db.Date
+  Promotion             Promotion? @relation(fields: [promotionId], references: [promotionId])
+  promotionId           String?   
+  @@index([userId])
+  @@index([productId])
+  @@index([planId])
+  @@index([planPriceId])
+  @@index([promotionId])
+}
+
+model Product {
+  productId            String    @id @default(cuid()) 
+  productName          String    @db.VarChar(255)
+  productDescription   String?   @db.VarChar(255)
+  plans                Plan[]
+  subscriptions        Subscription[]
+
+  @@unique([productName])
+}
+
+model Plan {
+  planId               String    @id @default(cuid()) 
+  planName             String    @unique @db.VarChar(255)
+  product              Product   @relation(fields: [productName], references: [productName])
+  productName          String    @db.VarChar(255)
+  planDescription      String?   @db.VarChar(255)
+  planPrice            PlanPrice[]
+  planInterval         String    @db.VarChar(16)
+  planIntervalCount    Int       @db.Int
+  planTrialPeriodDays  Int       @db.Int
+  subscriptions        Subscription[]
+
+  @@index([productName])
+}
+
+model PlanPrice {
+  planPriceId          String    @id @default(cuid()) 
+  plan                 Plan      @relation(fields: [planName], references: [planName])
+  planName             String    
+  planPrice            Float     @db.Float
+  currency             String    @db.VarChar(16)
+  subscriptions         Subscription[]
+
+  @@index([planName])
+}
+model Promotion {
+  promotionId           String    @id @default(cuid()) 
+  promotionName         String    @db.VarChar(255)
+  promotionType         PromotionType @relation(fields: [promotionTypeId], references: [promotionTypeId])
+  promotionTypeId       Int
+  promotionDescription  String?   @db.VarChar(255)
+  promotionCode         String?   @db.VarChar(255)
+  subscriptions         Subscription[]
+
+  @@index([promotionTypeId, promotionCode])
+}
+
+model PromotionType {
+  promotionTypeId       Int       @id @default(autoincrement())
+  promotionTypeName     String    @db.VarChar(16)
+  promotions            Promotion[]
+}
+
+model Doc {
+  docId                 String      @id @default(cuid()) 
+  docName               String      @db.VarChar(255)
+  owner                 User        @relation(fields: [ownerId], references: [userId])
+  ownerId               String      
+  nodes                 Node[]
+  docAccess             DocAccess[] 
+  docStatus             DocStatus   @relation(fields: [docStatusId], references: [docStatusId])
+  docStatusId           Int
+  docType               DocType     @relation(fields: [docTypeId], references: [docTypeId])
+  docTypeId             Int
+  docTheme              Json?       @db.Json
+
+  @@index([ownerId])
+  @@index([docStatusId])
+  @@index([docTypeId])
+}
+
+model DocStatus {
+  docStatusId           Int       @id @default(autoincrement())
+  docStatusName         String    @db.VarChar(16)
+  docs                  Doc[]
+}
+
+model DocType {
+  docTypeId             Int       @id @default(autoincrement())
+  docTypeName           String    @db.VarChar(16)
+  docs                  Doc[]
+}
+
+model DocAccess {
+  // docAccessId           String    @id @default(cuid()) 
+  doc                   Doc       @relation(fields: [docId], references: [docId])
+  docId                 String    
+  user                  User      @relation(fields: [userId], references: [userId])
+  userId                String    
+  docAccessType         DocAccessType @relation(fields: [docAccessTypeId], references: [docAccessTypeId])
+  docAccessTypeId       Int
+  viewData              Json?     @db.Json
+
+  @@index([docId])
+  @@index([userId])
+  // @@index([docId, docAccessTypeId])
+  // @@index([userId, docAccessTypeId])
+  @@index([docAccessTypeId])
+  @@unique([docId, userId])
+}
+
+model DocAccessType {
+  docAccessTypeId           Int       @id @default(autoincrement())
+  docAccessType             String    @db.VarChar(16)
+  docAccesses               DocAccess[]
+}
+
+model DocEvent {
+  docEventId    String      @id @default(cuid()) 
+  docId         String      
+  eventType     String      
+  eventDate     DateTime    @db.Date
+  eventData     Json        @db.Json
+}
+
+model Node {
+  nodeId                String    @id @default(cuid()) 
+  nodeName              String    @db.VarChar(255)
+  owner                 User      @relation(fields: [ownerId], references: [userId])
+  ownerId               String    
+  doc                   Doc       @relation(fields: [docId], references: [docId])
+  docId                 String    
+  nodeType              NodeType  @relation(fields: [nodeTypeId], references: [nodeTypeId])
+  nodeTypeId            Int
+  nodeData              Json      @db.Json
+  nodeAccess            NodeAccess[]
+  nodeAccessId          String     @unique
+  parentNode            Node?     @relation("parent-to-child", fields: [parentId], references: [nodeId], onDelete: NoAction, onUpdate: NoAction)
+  parentId              String?   
+  childNodes            Node[]    @relation("parent-to-child") 
+  // linkedNodes           Node[]    @relation("linkedNodes")
+
+  @@index([ownerId])
+  @@index([docId])
+  @@index([nodeTypeId])
+  @@index([parentId])
+}
+
+model NodeType {
+  nodeTypeId            Int       @id @default(autoincrement())
+  nodeTypeName          String    @db.VarChar(16)
+  nodes                 Node[]
+}
+
+model NodeAccess {
+  node                  Node      @relation(fields: [nodeId], references: [nodeId])
+  nodeId                String     @unique
+  user                  User      @relation(fields: [userId], references: [userId])
+  userId                String    
+  nodeAccessType        NodeAccessType @relation(fields: [nodeAccessTypeId], references: [nodeAccessTypeId])
+  nodeAccessTypeId      Int
+  viewData              Json?     @db.Json
+
+  @@index([nodeId])
+  @@index([userId])
+  @@unique([nodeId, userId])
+  @@index([nodeAccessTypeId])
+}
+
+model NodeAccessType {
+  nodeAccessTypeId          Int       @id @default(autoincrement())
+  nodeAccessType            String    @db.VarChar(16)
+  nodeAccesses              NodeAccess[]
+}
+
+model NodeEvent {
+  nodeEventId   String      @id @default(cuid()) 
+  nodeId        String      
+  eventType     String      
+  eventDate     DateTime    @db.Date
+  eventData     Json        @db.Json
+}
+
+
+
+model Example {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+// Necessary for Next auth
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? // @db.Text
+    access_token      String? // @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? // @db.Text
+    session_state     String?
+    user              User    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@index([userId])
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@index([userId])
+}
+
+// model User {
+//     id            String    @id @default(cuid())
+//     name          String?
+//     email         String?   @unique
+//     emailVerified DateTime?
+//     image         String?
+//     accounts      Account[]
+//     sessions      Session[]
+// }
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
